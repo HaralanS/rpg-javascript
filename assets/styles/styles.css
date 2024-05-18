@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+.game-screen {
+    background: lightgray;
+    height: 500px;
+    width: 350px;
+    margin: auto;
+    margin-top: 50px;
+    overflow: hidden;
+}
+
+.page-title {
+    /* background: orange; */
+    background-image: url("../img/page-title-bg-01.png");
+    height: 50px;
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(255, 153, 0);
+    border: 2px solid rgba(255, 255, 255, 0.438);
+}

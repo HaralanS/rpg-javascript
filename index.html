@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/styles/styles.css">
+    <link rel="stylesheet" href="/assets/styles/starting-page.css">
+    <link rel="stylesheet" href="/assets/styles/village-screen.css">
+    <link rel="stylesheet" href="/assets/styles/shop-screen.css">
+    <link rel="stylesheet" href="/assets/styles/map-screen.css">
+    <link rel="stylesheet" href="/assets/styles/battle-screen.css">
+    <title>RPG Game</title>
+</head>
+<body>
+    <div class="game-screen">
+        <div id="create-char-screen" class="create-char-screen">
+            <h1 class="start-title">Orb's Quest</h1>
+            <p id="description"></p>
+            <input id="name-input" type="text" placeholder="Escolha o nome do personagem">
+            <button onclick=setVillage() id="name-button">Iniciar</button>
+        </div>
+        <div id="village-screen" class="village-screen">
+            <div class="page-title">Vila Nova Esperanca</div>
+            <div class="player-stats">
+                <p class="stats-01 stats"></p>
+                <p class="stats-02 stats"></p>
+                <p class="stats-03 stats"></p>
+                <p class="stats-04 stats"></p>
+            </div>
+            <div class="village-char-box">
+                <img class="village-char-img" src="assets/img/warrior-01-128.png" alt="">
+            </div>
+            <div class="village-buttons-box">
+                <button onclick=setShop() class="village-button">Loja</button>
+                <button class="village-button">Inventario</button>
+                <button onclick=drinkLP() class="village-button">Pocao de vida</button>
+                <button onclick=drinkMP() class="village-button">Pocao de mana</button>
+                <button onclick=setMap() class="village-button">Explorar</button>
+                <button class="village-button">Sair</button>
+            </div>
+        </div>
+        <div id="shop-screen">
+            <div class="page-title">Loja de Bugigangas</div>
+            <div class="player-stats">
+                <p class="shop-stats-01 stats"></p>
+                <p class="shop-stats-02 stats"></p>
+                <div class="shop-message-box">
+                    <p class="shop-message">Bem vindo aventureiro! O que deseja comprar?</p>
+                    
+                </div>
+            </div>
+            <div class="buying-box">
+                
+                <div class="shop-item-box">
+                    <p onclick=showItemData(1) class="shop-item-name shop-item-1">Pocao de vida: </p>
+                    <input class="shop-item-input lp-input" type="number" placeholder="quant">
+                    <button onclick=buyLifePotion() class="shop-item-button">Comprar</button>
+                </div>
+                <div class="shop-item-box">
+                    <p onclick=showItemData(2) class="shop-item-name shop-item-2">Pocao de mana: </p>
+                    <input class="shop-item-input mp-input" type="number" placeholder="quant">
+                    <button onclick=buyManaPotion() class="shop-item-button">Comprar</button>
+                </div>
+                <div class="shop-item-box">
+                    <p onclick=showItemData(3) class="shop-item-name shop-item-3">Espada de Aco</p>
+                    <button onclick=buyEquipment(1) class="shop-item-button">Comprar</button>
+                </div>
+                <div class="shop-item-box">
+                    <p onclick=showItemData(4) class="shop-item-name shop-item-4">Armadura de Malha</p>
+                    <button onclick=buyEquipment(2) class="shop-item-button">Comprar</button>
+                </div>
+
+
+            
+            </div>
+            <button onclick=setVillage() class="shop-exit-button">Sair da loja</button>
+        </div>
+        <div id="inventory-screen">
+
+        </div>
+        <div id="map-screen">
+            <div class="page-title">Mapa</div>
+            <div class="player-stats">
+                <p class="map-stats-01 stats"></p>
+                <p class="map-stats-02 stats"></p>
+                
+            </div>
+            <div class="map-box">
+                <div onclick=selectRespawn(1) class="respawn-box clickable"><p class="respawn-text">Vila Goblin</p></div>
+                <div class="respawn-box"></div>
+                <div class="respawn-box"></div>
+                <div onclick=selectRespawn(2) class="respawn-box clickable"><p class="respawn-text">Forte dos Orcs</p></div>
+            </div>
+
+            <div class="map-respawn-selection">
+                <p class="map-message">Para onde deja ir aventureiro?</p>
+                <div class="map-buttons-box">
+
+                    <button onclick=goToRespawn() class="respawn-selection-button map-buttons">Ir</button>
+                    <button onclick=setVillage() class="map-exit-button map-buttons">Voltar para a vila</button>
+                </div>
+            </div>
+        </div>
+        <div id="battle-screen">
+            <div class="page-title">Batalha</div>
+            <div class="player-stats">
+                <p class="battle-stats-01 stats"></p>
+                <p class="battle-stats-02 stats"></p>
+                <p class="battle-stats-03 stats"></p>
+                <p class="battle-stats-04 stats">Ataque para comecar!</p>
+                
+            </div>
+            <div class="battle-box">
+                <div class="hero-box">
+                    <img class="char-battle-img" src="assets/img/warrior-01-128.png" alt="">
+                </div>
+                <div class="monster-box">
+                    <img class="monster-battle-img" src="" alt="">
+                </div>
+            </div>
+            <div class="battle-options">
+                <button onclick=figth(1) class="attack-button battle-button">Ataque comum</button>
+                <button onclick=figth(2) class="special-attack-button battle-button">Ataque Especial</button>
+                <button disabled onclick=exitBattle() class="battle-exit-button">Voltar para a vila</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/assets/js/script.js"></script>
+</body>
+</html>

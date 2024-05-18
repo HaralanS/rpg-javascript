@@ -1,0 +1,60 @@
+#battle-screen {
+    display: none;
+    background: rgb(43, 255, 0);
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    
+}
+
+.battle-box {
+    height: 250px;
+    background: rgba(255, 255, 255, 0.438);
+    display: flex;
+}
+
+.battle-stats-04 {
+    background: white;
+    border-radius: 10px;
+    color: black;
+    text-align: center;
+    padding: 5px;
+}
+
+.battle-button {
+    cursor: pointer;
+    
+}
+
+.battle-options {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100px;
+    background-image: url("../img/buttons-box-bg-01.png");
+    border: 2px solid rgba(255, 255, 255, 0.438);
+    gap: 10px;
+    padding: 10px;
+}
+.battle-options button {
+    padding: 5px;
+    height: 30px;
+    cursor: pointer;
+}
+.hero-box {
+    height: 100%;
+    /* background: blue; */
+    width: 175px;
+}
+.char-battle-img {
+    position: relative;
+    top: 110px;
+    /* transform: scaleX(-1); */
+    left: 40px;
+}
+
+.monster-battle-img {
+    position: relative;
+    top: 110px;
+    left: 5px;
+    /* rotate: 90deg; */
+}

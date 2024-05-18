@@ -1,0 +1,51 @@
+.village-screen {
+    display: none;
+    background: rgb(43, 255, 0);
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.player-stats {
+    height: 100px;
+    /* background: green; */
+    background-image: url("../img/stats-box-bg-01.png");
+    border: 2px solid rgba(0, 0, 0, 0.342);
+    padding: 10px;
+}
+
+.village-char-box {
+    background-image: url("../img/village-bg-01.png");
+    height: 250px;
+}
+
+.village-buttons-box {
+    /* background: green; */
+    background-image: url("../img/buttons-box-bg-01.png");
+    height: 100px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 10px 15px;
+    border: 2px solid rgba(255, 255, 255, 0.438);
+}
+
+.village-button {
+    padding: 5px;
+    min-width: 100px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 0 0 5px black;
+}
+
+.stats {
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.village-char-img {
+    position: relative;
+    top: 110px;
+    left: 111px;
+}

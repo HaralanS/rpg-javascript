@@ -1,0 +1,61 @@
+#map-screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.map-box {
+    height: 250px;
+    background-image: url("../img/javascript-game-map.png");
+    background-position: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    justify-content: space-between;
+    gap: 50px;
+}
+.map-respawn-selection {
+    height: 100px;
+    background: green;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+    background-image: url("../img/buttons-box-bg-01.png");
+    border: 2px solid rgba(255, 255, 255, 0.438);
+}
+
+.map-message {
+    text-align: center;
+    color: white;
+}
+.map-buttons-box {
+    display: flex;
+    justify-content: space-between;
+    
+}
+.map-buttons {
+    width: 150px;
+    padding: 5px;
+    cursor: pointer;
+    
+}
+
+.respawn-box {
+    height: 85px;
+    width: 80px;
+    /* background: rgba(255, 255, 255, 0.507); */
+    
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 60px;
+    color: black;
+}
+.respawn-text {
+    background: rgba(255, 255, 255, 0.616);
+}
+.clickable {
+    cursor: pointer;
+}
