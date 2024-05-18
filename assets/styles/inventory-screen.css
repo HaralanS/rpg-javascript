@@ -5,3 +5,41 @@
     height: 100%;
     flex-direction: column;
 }
+
+.inventory-stats-01 {
+    color: white;
+}
+
+.inventory-item-name {
+    cursor: pointer;
+    background: rgb(66, 66, 66);
+    height: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.733);
+    padding: 5px;
+    color: white;
+    font-size: 14px;
+    
+}
+
+.inventory-box {
+    height: 250px;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+.inventory-item-selection {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-around;
+    height: 100px;
+    background-image: url("../img/buttons-box-bg-01.png");
+    border: 2px solid rgba(255, 255, 255, 0.438);
+}
+
+.inventory-buttons {
+    padding: 5px;
+    cursor: pointer;
+    height: 30px;
+    width: 120px;
+}

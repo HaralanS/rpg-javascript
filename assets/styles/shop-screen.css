@@ -8,7 +8,7 @@
 
 .buying-box{
     background: rgba(255, 255, 255, 0.219);
-    height: 300px;
+    height: 250px;
     overflow-y: scroll;
 }
 
@@ -16,7 +16,7 @@
     width: 100px;
     margin: auto;
     cursor: pointer;
-    padding: 5px;
+    padding: 2px 5px;
 }
 
 .shop-item-box {
@@ -32,16 +32,17 @@
 
 .shop-message-box {
     height: 60px;
-    padding: 10px;
+    /* padding: 10px; */
     text-align: center;
 }
 .shop-message {
-    height: 50px;
+    height: 45px;
     padding: 5px;
     text-align: center;
     background: white;
     border-radius: 10px;
     border: 1px solid black;
+    font-size: 14px;
 }
 .shop-item-button {
     height: 25px;
@@ -52,4 +53,14 @@
 .shop-item-name {
     padding-top: 5px;
     cursor: pointer;
+}
+
+.shop-footer {
+    height: 100px;
+    padding: 10px;
+    background-image: url("../img/buttons-box-bg-01.png");
+    border: 2px solid rgba(255, 255, 255, 0.438);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

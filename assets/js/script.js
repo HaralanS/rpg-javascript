@@ -24,6 +24,31 @@ class SmallSword {
         
     }
 }
+class TestSword {
+    name = "Espada de Teste";
+    type = "weapon";
+    attack = 2;
+    sellingPrice = 5;
+    specialAttackName = "Estocada";
+    specialAttackCost = 20;
+    info = "Espada de teste - Ataque: 2 - Estocada: Garante acerto e da o dobro de dano ao custo de 20 de mana"
+
+    specialAttack(herop){
+        const random = Math.random() * 100;
+        const damage = Math.ceil(herop.strength + this.attack + (this.attack) * Math.random() * 2) * 2;
+        if(herop.mana >= 20) {
+            herop.mana -= 20;
+            if(random < 80) {
+                console.log(damage)
+                return damage;
+            } else {
+                console.log(damage * 2)
+                return damage * 2;
+            } 
+        }
+        
+    }
+}
 class SteelSword {
     name = "Espada de Aco";
     type = "weapon";
@@ -74,7 +99,7 @@ const hero = {
     manaPotion: 1,
     equippedWeappon: new SmallSword(),
     equippedArmor: new LeatherArmor(),
-    inventario: [],
+    inventario: [new TestSword()],
 
     drinkLifePotion() {
         if(this.lifePotion > 0) {
@@ -111,69 +136,83 @@ const hero = {
             if(this.experience - xp < 1300) {
                 battleStats4.innerHTML += " - Parabens! Voce subiu para o nivel 8!"
                 this.life = Math.min(this.life + 15, this.maxLife);
+                this.mana = Math.min(this.mana + 5, this.maxMana);
 
             }
             this.level = 8;
             this.strength = 19;
             this.maigcPower = 9;
             this.maxLife = 205;
+            this.maxMana = 85;
         } else if (this.experience >= 1000) {
             if(this.experience - xp < 1000) {
                 battleStats4.innerHTML += " - Parabens! Voce subiu para o nivel 7!"
                 this.life = Math.min(this.life + 15, this.maxLife);
+                this.mana = Math.min(this.mana + 5, this.maxMana);
 
             }
             this.level = 7;
             this.strength = 17;
             this.maigcPower = 8;
             this.maxLife = 190;
+            this.maxMana = 80;
         } else if (this.experience >= 750) {
             if(this.experience - xp < 750) {
                 battleStats4.innerHTML += " - Parabens! Voce subiu para o nivel 6!"
                 this.life = Math.min(this.life + 15, this.maxLife);
+                this.mana = Math.min(this.mana + 5, this.maxMana);
 
             }
             this.level = 6;
             this.strength = 15;
             this.maigcPower = 7;
             this.maxLife = 175;
+            this.maxMana = 75;
         } else if (this.experience >= 540) {
             if(this.experience - xp < 540) {
                 battleStats4.innerHTML += " - Parabens! Voce subiu para o nivel 5!"
                 this.life = Math.min(this.life + 15, this.maxLife);
+                this.mana = Math.min(this.mana + 5, this.maxMana);
 
             }
             this.level = 5;
             this.strength = 13;
             this.maigcPower = 6;
             this.maxLife = 160;
+            this.maxMana = 70;
         } else if (this.experience >= 365) {
             if(this.experience - xp < 365) {
                 battleStats4.innerHTML += " - Parabens! Voce subiu para o nivel 4!"
                 this.life = Math.min(this.life + 15, this.maxLife);
+                this.mana = Math.min(this.mana + 5, this.maxMana);
             }
             this.level = 4;
             this.strength = 11;
             this.maigcPower = 5;
             this.maxLife = 145;
+            this.maxMana = 65;
         } else if (this.experience >= 220) {
             if(this.experience - xp < 220) {
                 battleStats4.innerHTML += " - Parabens! Voce subiu para o nivel 3!"
                 this.life = Math.min(this.life + 15, this.maxLife);
+                this.mana = Math.min(this.mana + 5, this.maxMana);
             }
             this.level = 3;
             this.strength = 9;
             this.maigcPower = 4;
             this.maxLife = 130;
+            this.maxMana = 60;
         } else if (this.experience >= 100) {
             if(this.experience - xp < 100) {
                 battleStats4.innerHTML += " - Parabens! Voce subiu para o nivel 2!"
                 this.life = Math.min(this.life + 15, this.maxLife);
+                this.mana = Math.min(this.mana + 5, this.maxMana);
             }
             this.level = 2;
             this.strength = 7;
             this.maigcPower = 3;
             this.maxLife = 115;
+            this.maxMana = 55;
         }
 
     }
@@ -265,12 +304,14 @@ const buyLifePotion = () => {
 const experienceList = [0, 100, 220, 365, 540, 750, 1000, 1300];
 let monster;
 let chosenRespawn = 0;
+let selectedItem;
 
 const startScreen = document.getElementById("create-char-screen");
 const villageScreen = document.getElementById("village-screen");
 const shopScreen = document.getElementById("shop-screen")
 const mapScreen = document.getElementById("map-screen")
 const battleScreen = document.getElementById("battle-screen")
+const inventoryScreen = document.getElementById("inventory-screen")
 
 const nameInput = document.getElementById("name-input");
 const nameButton = document.getElementById("name-button");
@@ -281,12 +322,11 @@ const villageStats4 = document.querySelector(".stats-04");
 const mpBuyingQuant = document.querySelector(".mp-input")
 const lpBuyingQuant = document.querySelector(".lp-input")
 const shopMessage = document.querySelector(".shop-message")
-// const shopItem1 = document.querySelector(".shop-item-1");
-// const shopItem2 = document.querySelector(".shop-item-2");
-// const shopItem3 = document.querySelector(".shop-item-3");
-// const shopItem4 = document.querySelector(".shop-item-4");
+const shopStats1 = document.querySelector(".shop-stats-01")
+const shopStats2 = document.querySelector(".shop-stats-02")
 
-const mapMessage = document.querySelector(".map-message")
+const mapMessage = document.querySelector(".map-message");
+const mapStats2 = document.querySelector(".map-stats-02");
 
 const battleStats1 = document.querySelector(".battle-stats-01");
 const battleStats2 = document.querySelector(".battle-stats-02");
@@ -297,6 +337,9 @@ const specialAttackButton = document.querySelector(".special-attack-button");
 const battleExitButton = document.querySelector(".battle-exit-button")
 const monsterImage = document.querySelector(".monster-battle-img")
 const heroImage = document.querySelector(".char-battle-img")
+
+const inventoryBox = document.querySelector(".inventory-box")
+const inventoryMessage = document.querySelector(".inventory-stats-01")
 
 
 
@@ -311,14 +354,23 @@ const setVillage = () => {
     startScreen.setAttribute("style", "display: none")
     shopScreen.setAttribute("style", "display: none")
     mapScreen.setAttribute("style", "display: none")
+    inventoryScreen.setAttribute("style", "display: none")
     villageScreen.setAttribute("style", "display: flex")
     battleScreen.setAttribute("style", "display: none")
     setStats()
 }
 
 const setShop = () => {
+    shopMessage.innerHTML = "Bem vindo aventureiro! O que deseja comprar?"
     villageScreen.setAttribute("style", "display: none")
     shopScreen.setAttribute("style", "display: flex")
+    shopStats1.innerHTML = `Pocoes de vida: ${hero.lifePotion} - Pocoes de mana: ${hero.manaPotion} - Gold: ${hero.gold}`
+    shopStats2.innerHTML = `${hero.equippedWeappon.name} - Atq: ${hero.equippedWeappon.attack} -- ${hero.equippedArmor.name} - Arm: ${hero.equippedArmor.armor}`
+}
+const setInventory = () => {
+    villageScreen.setAttribute("style", "display: none")
+    inventoryScreen.setAttribute("style", "display: flex")
+    setInventoryStats()
 }
 const setMap = () => {
     villageScreen.setAttribute("style", "display: none")
@@ -341,10 +393,12 @@ const setBattle = () => {
 const selectRespawn = (resp) => {
     chosenRespawn = resp;
     if(resp == 1) {
-        mapMessage.innerHTML = "Ir para o acampamento dos goblins"
+        mapMessage.innerHTML = "Ir para o acampamento dos goblins";
+        mapStats2.innerHTML = "O acampamento dos goblins eh um otimo lugar para um aventureiro iciante adquirir experiencia"
     }
     if(resp == 2) {
-        mapMessage.innerHTML = "Ir para o forte dos orcs"
+        mapMessage.innerHTML = "Ir para o forte dos orcs";
+        mapStats2.innerHTML = "O forte dos orcs pode ser desafiador se voce esta comecando, mas quando que voce sentir que o acampamento dos goblins esta facil pode ser uma boa opcao."
     }
 }
 const goToRespawn = () => {
@@ -445,16 +499,23 @@ const drinkMP = () => {
     setStats()
 }
 const buyEquipment = (equipment) => {
+    
     if(equipment == 1) {
+        buyLifePotion()
+    }
+    if(equipment == 2) {
+        buyManaPotion()
+    }
+    if(equipment == 3) {
         if(hero.gold >= 100) {
-            hero.inventario.push(new SmallSword())
+            hero.inventario.push(new SteelSword())
             hero.gold -= 100;
             shopMessage.innerHTML = "Voce comprou uma espada de aco por 100 gold"
         } else  {
             shopMessage.innerHTML = "Voce nao tem gold suficiente"
         }
     }
-    if(equipment == 2) {
+    if(equipment == 4) {
         if(hero.gold >= 80) {
             hero.inventario.push(new ChainArmor())
             hero.gold -= 80;
@@ -463,6 +524,8 @@ const buyEquipment = (equipment) => {
             shopMessage.innerHTML = "Voce nao tem gold suficiente"
         }
     }
+    shopStats1.innerHTML = `Pocoes de vida: ${hero.lifePotion} - Pocoes de mana: ${hero.manaPotion} - Gold: ${hero.gold}`
+    shopStats2.innerHTML = `${hero.equippedWeappon.name} - Atq: ${hero.equippedWeappon.attack} -- ${hero.equippedArmor.name} - Arm: ${hero.equippedArmor.armor}`
 }
 
 const showItemData = (item) => {
@@ -478,4 +541,43 @@ const showItemData = (item) => {
     if(item == 4) {
         shopMessage.innerHTML = `Armadura: 4 - 80 gold`
     }
+}
+
+const exitGame = () => {
+    location.reload()
+}
+
+const setInventoryStats = () => {
+    inventoryBox.innerText = "";
+    for (let i = 0; i < hero.inventario.length; i++) {
+        const inventoryItemBox = document.createElement("div")
+        inventoryItemBox.innerHTML = hero.inventario[i].name;
+        inventoryItemBox.setAttribute("class", "inventory-item-name")
+        inventoryItemBox.setAttribute("onclick", `selectShowItem(${i})`)
+        inventoryBox.appendChild(inventoryItemBox)
+        
+    }
+    
+    
+}
+const selectShowItem = (indice) => {
+    selectedItem = indice
+    inventoryMessage.innerHTML = hero.inventario[indice].info
+}
+
+const equipItem = () => {
+    
+    if(hero.inventario[selectedItem].type == "weapon") {
+        hero.inventario.push(hero.equippedWeappon)
+        console.log(hero.inventario)
+        hero.equippedWeappon = hero.inventario[selectedItem]
+        hero.inventario.splice(selectedItem, 1)
+        console.log(hero.inventario)
+    }
+    if(hero.inventario[selectedItem].type == "armor") {
+        hero.inventario.push(hero.equippedArmor)
+        hero.equippedArmor = hero.inventario[selectedItem]
+        hero.inventario.splice(selectedItem, 1)
+    }
+    setInventoryStats()
 }

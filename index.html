@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/assets/styles/shop-screen.css">
     <link rel="stylesheet" href="/assets/styles/map-screen.css">
     <link rel="stylesheet" href="/assets/styles/battle-screen.css">
+    <link rel="stylesheet" href="/assets/styles/inventory-screen.css">
     <title>RPG Game</title>
 </head>
 <body>
@@ -32,11 +33,11 @@
             </div>
             <div class="village-buttons-box">
                 <button onclick=setShop() class="village-button">Loja</button>
-                <button class="village-button">Inventario</button>
+                <button onclick=setInventory() class="village-button">Inventario</button>
                 <button onclick=drinkLP() class="village-button">Pocao de vida</button>
                 <button onclick=drinkMP() class="village-button">Pocao de mana</button>
                 <button onclick=setMap() class="village-button">Explorar</button>
-                <button class="village-button">Sair</button>
+                <button onclick=exitGame() class="village-button">Sair</button>
             </div>
         </div>
         <div id="shop-screen">
@@ -44,39 +45,61 @@
             <div class="player-stats">
                 <p class="shop-stats-01 stats"></p>
                 <p class="shop-stats-02 stats"></p>
-                <div class="shop-message-box">
-                    <p class="shop-message">Bem vindo aventureiro! O que deseja comprar?</p>
-                    
-                </div>
+                
             </div>
             <div class="buying-box">
                 
                 <div class="shop-item-box">
                     <p onclick=showItemData(1) class="shop-item-name shop-item-1">Pocao de vida: </p>
                     <input class="shop-item-input lp-input" type="number" placeholder="quant">
-                    <button onclick=buyLifePotion() class="shop-item-button">Comprar</button>
+                    <button onclick=buyEquipment(1) class="shop-item-button">Comprar</button>
                 </div>
                 <div class="shop-item-box">
                     <p onclick=showItemData(2) class="shop-item-name shop-item-2">Pocao de mana: </p>
                     <input class="shop-item-input mp-input" type="number" placeholder="quant">
-                    <button onclick=buyManaPotion() class="shop-item-button">Comprar</button>
+                    <button onclick=buyEquipment(2) class="shop-item-button">Comprar</button>
                 </div>
                 <div class="shop-item-box">
                     <p onclick=showItemData(3) class="shop-item-name shop-item-3">Espada de Aco</p>
-                    <button onclick=buyEquipment(1) class="shop-item-button">Comprar</button>
+                    <button onclick=buyEquipment(3) class="shop-item-button">Comprar</button>
                 </div>
                 <div class="shop-item-box">
                     <p onclick=showItemData(4) class="shop-item-name shop-item-4">Armadura de Malha</p>
-                    <button onclick=buyEquipment(2) class="shop-item-button">Comprar</button>
+                    <button onclick=buyEquipment(4) class="shop-item-button">Comprar</button>
                 </div>
 
 
             
             </div>
-            <button onclick=setVillage() class="shop-exit-button">Sair da loja</button>
+            <div class="shop-footer">
+                <div class="shop-message">
+                    Bem vindo aventureiro! O que deseja comprar?                    
+                </div>
+                <button onclick=setVillage() class="shop-exit-button">Sair da loja</button>
+            </div>
+            
         </div>
         <div id="inventory-screen">
+            <div class="page-title">Inventario</div>
+            <div class="player-stats">
+                <p class="inventory-stats-01 stats">Clique para ver mais e selecionar</p>
+                <p class="inventory-stats-02 stats"></p>
+                
+            </div>
+            <div class="inventory-box">
+                <!-- <div onclick=selectShowItem(0) class="inventory-item-name">
+                    item de teste
+                </div> -->
+            </div>
 
+            <div class="inventory-item-selection">
+                <p class="map-message">Selecione um item para equipar</p>
+                <div class="map-buttons-box">
+
+                    <button onclick=equipItem() class="inventory-buttons">Equipar</button>
+                    <button onclick=setVillage() class="inventory-buttons">Sair do inventario</button>
+                </div>
+            </div>
         </div>
         <div id="map-screen">
             <div class="page-title">Mapa</div>
@@ -93,7 +116,7 @@
             </div>
 
             <div class="map-respawn-selection">
-                <p class="map-message">Para onde deja ir aventureiro?</p>
+                <p class="map-message">Para onde deseja ir?</p>
                 <div class="map-buttons-box">
 
                     <button onclick=goToRespawn() class="respawn-selection-button map-buttons">Ir</button>
