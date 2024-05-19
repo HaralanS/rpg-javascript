@@ -11,6 +11,11 @@
     height: 250px;
     background: rgba(255, 255, 255, 0.438);
     display: flex;
+    flex-direction: column;
+}
+
+.combat-box {
+    display: flex;
 }
 
 .battle-stats-04 {
@@ -19,10 +24,13 @@
     color: black;
     text-align: center;
     padding: 5px;
+    margin-top: 5px;
 }
 
 .battle-button {
     cursor: pointer;
+    width: 100px;
+    font-size: 12px;
     
 }
 
@@ -47,14 +55,89 @@
 }
 .char-battle-img {
     position: relative;
-    top: 110px;
+    top: 70px;
     /* transform: scaleX(-1); */
     left: 40px;
 }
 
 .monster-battle-img {
     position: relative;
-    top: 110px;
+    top: 90px;
     left: 5px;
     /* rotate: 90deg; */
+}
+
+.life-bar-bg-monster {
+    background: rgb(255, 61, 61);
+    height: 18px;
+    width: 150px;
+    border: 1px solid black;
+    position: relative;
+    left: 15px;
+    top: 50px;
+}
+
+.life-bar-monster {
+    height: 100%;
+    width: 100%;
+    background: rgb(140, 233, 0);
+    text-align: center;
+}
+.life-bar-stats-monster {
+    text-align: center;
+    position: relative;
+    top: -16px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.life-bar-stats-btl {
+    text-align: center;
+    position: relative;
+    top: -16px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.mana-bar-stats-btl {
+    text-align: center;
+    position: relative;
+    top: -16px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.life-bar-btl {
+    height: 100%;
+    width: 100%;
+    background: rgb(140, 233, 0);
+    text-align: center;
+}
+.mana-bar-btl {
+    height: 100%;
+    width: 100%;
+    background: rgb(186, 0, 233);
+    text-align: center;
+}
+.life-mana-box-btl {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* background: rgba(255, 255, 255, 0.63); */
+}
+.life-bar-bg-btl {
+    background: rgb(255, 61, 61);
+    height: 18px;
+    width: 150px;
+    border: 1px solid black;
+    position: relative;
+    left: 10px;
+    top: 50px;
+}
+.mana-bar-bg-btl {
+    background: rgb(255, 61, 61);
+    height: 18px;
+    width: 150px;
+    border: 1px solid black;
+    position: relative;
+    left: 10px;
+    top: 60px;
 }

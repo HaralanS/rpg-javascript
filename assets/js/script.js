@@ -56,7 +56,7 @@ class SteelSword {
     sellingPrice = 15;
     specialAttackName = "Cruzado";
     specialAttackCost = 25;
-    info = "Ataque: 5 - Cruzado: Garante acerto e da o dobro de dano ao custo de 25 de mana"
+    info = "Ataque: 5 - Cruzado: Garante acerto e da o dobro de dano ao custo de 25 de mana";
 
     specialAttack(herop){
         const random = Math.random() * 100;
@@ -77,12 +77,14 @@ class LeatherArmor {
     type = "armor";
     armor = 2;
     sellingPrice = 7;
+    info = "Armadura: 2 - Diminui o dano que voce recebe";
 }
 class ChainArmor {
     name = "Armadura de Malha";
     type = "armor";
     armor = 4;
     sellingPrice = 13;
+    info = "Armadura: 4 - Diminui o dano que voce recebe";
 }
 const hero = {
     name: "Haralan",
@@ -94,7 +96,7 @@ const hero = {
     maxMana: 50,
     strength: 5,
     magicPower: 3,
-    gold: 10,
+    gold: 20,
     lifePotion: 1,
     manaPotion: 1,
     equippedWeappon: new SmallSword(),
@@ -224,6 +226,7 @@ class Goblin {
     experience = 20;
     img = "../assets/img/goblin-01.png";
     hitImg = "../assets/img/goblin-hit-01.png";
+    deadImg = "../assets/img/goblin-dead-01.png";
 
     dropGold(){
         return Math.ceil(3 + Math.random() * 12);
@@ -247,6 +250,9 @@ class Orc {
     life = 75;
     maxLife = 75;
     experience = 30;
+    img = "../assets/img/orc-01.png";
+    hitImg = "../assets/img/orc-hit-01.png";
+    deadImg = "../assets/img/orc-dead-01.png";
 
     dropGold(){
         return Math.ceil(5 + Math.random() * 15);
@@ -305,6 +311,7 @@ const experienceList = [0, 100, 220, 365, 540, 750, 1000, 1300];
 let monster;
 let chosenRespawn = 0;
 let selectedItem;
+const bgImgList = [" ", "../assets/img/goblin-forest-bg.png", "../assets/img/orc-fortress-bg-ani.gif"]
 
 const startScreen = document.getElementById("create-char-screen");
 const villageScreen = document.getElementById("village-screen");
@@ -319,6 +326,11 @@ const villageStats1 = document.querySelector(".stats-01")
 const villageStats2 = document.querySelector(".stats-02");
 const villageStats3 = document.querySelector(".stats-03")
 const villageStats4 = document.querySelector(".stats-04");
+const lifeBar = document.querySelector(".life-bar")
+const manaBar = document.querySelector(".mana-bar")
+const lifeBarStats = document.querySelector(".life-bar-stats")
+const manaBarStats = document.querySelector(".mana-bar-stats")
+
 const mpBuyingQuant = document.querySelector(".mp-input")
 const lpBuyingQuant = document.querySelector(".lp-input")
 const shopMessage = document.querySelector(".shop-message")
@@ -335,8 +347,19 @@ const battleStats4 = document.querySelector(".battle-stats-04");
 const attackButton = document.querySelector(".attack-button");
 const specialAttackButton = document.querySelector(".special-attack-button");
 const battleExitButton = document.querySelector(".battle-exit-button")
+const battleContinueButton = document.querySelector(".battle-continue-button")
+const battleLPButton = document.querySelector(".battle-lp-button")
+const battleMPButton = document.querySelector(".battle-mp-button")
+const battleBox = document.querySelector(".battle-box")
+
 const monsterImage = document.querySelector(".monster-battle-img")
 const heroImage = document.querySelector(".char-battle-img")
+const lifeBarStatsBtl = document.querySelector(".life-bar-stats-btl")
+const manaBarStatsBtl = document.querySelector(".mana-bar-stats-btl")
+const lifeBarBtl = document.querySelector(".life-bar-btl")
+const manaBarBtl = document.querySelector(".mana-bar-btl")
+const lifeBarStatsMonster = document.querySelector(".life-bar-stats-monster")
+const lifeBarMonster = document.querySelector(".life-bar-monster")
 
 const inventoryBox = document.querySelector(".inventory-box")
 const inventoryMessage = document.querySelector(".inventory-stats-01")
@@ -344,10 +367,15 @@ const inventoryMessage = document.querySelector(".inventory-stats-01")
 
 
 const setStats = () => {
-    villageStats1.innerHTML = `${hero.name} - Lvl: ${hero.level} - Vida: ${hero.life}/${hero.maxLife} - XP: ${hero.experience}/${experienceList[hero.level]}`
+    villageStats1.innerHTML = `${hero.name} - Lvl: ${hero.level} - Experiencia: ${hero.experience}/${experienceList[hero.level]} - Forca: ${hero.strength}`
     villageStats2.innerHTML = `Pocoes de vida: ${hero.lifePotion} - Pocoes de mana: ${hero.manaPotion} - Gold: ${hero.gold}`
     villageStats3.innerHTML = `${hero.equippedWeappon.name} - Atq: ${hero.equippedWeappon.attack}`
     villageStats4.innerHTML = `${hero.equippedArmor.name} - Arm: ${hero.equippedArmor.armor}`
+
+    lifeBarStats.innerHTML = `${hero.life}/${hero.maxLife}`
+    manaBarStats.innerHTML = `${hero.mana}/${hero.maxMana}`
+    lifeBar.setAttribute("style", `width: ${100/hero.maxLife * hero.life}%;`)
+    manaBar.setAttribute("style", `width: ${100/hero.maxMana * hero.mana}%;`)
 }
 const setVillage = () => {
     hero.name = nameInput.value;
@@ -378,17 +406,29 @@ const setMap = () => {
 
 }
 const setBattleStats = () => {
-    battleStats1.innerHTML = `Vida: ${hero.life}/${hero.maxLife} - Mana: ${hero.mana}/${hero.maxMana} *** ${monster.name} - Vida: ${monster.life}/${monster.maxLife}`
+    battleStats1.innerHTML = `${hero.name} - Lvl: ${hero.level} - Experiencia: ${hero.experience}/${experienceList[hero.level]}`
+    battleStats2.innerHTML = `Pocoes de vida: ${hero.lifePotion} - Pocoes de mana: ${hero.manaPotion}`
     specialAttackButton.innerHTML = `${hero.equippedWeappon.specialAttackName} - ${hero.equippedWeappon.specialAttackCost}`
+    lifeBarStatsBtl.innerHTML = `${hero.life}/${hero.maxLife}`
+    manaBarStatsBtl.innerHTML = `${hero.mana}/${hero.maxMana}`
+    lifeBarBtl.setAttribute("style", `width: ${100/hero.maxLife * hero.life}%;`)
+    manaBarBtl.setAttribute("style", `width: ${100/hero.maxMana * hero.mana}%;`)
+    lifeBarStatsMonster.innerHTML = `${monster.life}/${monster.maxLife}`
+    lifeBarMonster.setAttribute("style", `width: ${100/monster.maxLife * monster.life}%;`)
 }
 const setBattle = () => {
     mapScreen.setAttribute("style", "display: none")
     battleScreen.setAttribute("style", "display: flex")
     attackButton.removeAttribute("disabled")
     battleStats4.innerHTML = `Ataque para comecar`
+    battleBox.setAttribute("style", `background-image: url(${bgImgList[chosenRespawn]});`)
+    
     if(hero.mana >= hero.equippedWeappon.specialAttackCost) {
         specialAttackButton.removeAttribute("disabled")
     }
+    battleContinueButton.setAttribute("disabled", "true")
+    battleLPButton.setAttribute("disabled", "true")
+    battleMPButton.setAttribute("disabled", "true")
 }
 const selectRespawn = (resp) => {
     chosenRespawn = resp;
@@ -402,14 +442,28 @@ const selectRespawn = (resp) => {
     }
 }
 const goToRespawn = () => {
+    
     if(chosenRespawn == 1) {
         monster = new Goblin();
-        monsterImage.setAttribute("src", monster.img)
+        if(monster.life != 0){
+            monsterImage.setAttribute("src", monster.img)
+        }
+        
+        if(monster.life == 0) {
+            monsterImage.setAttribute("src", monster.deadImg)
+        }
         setBattle()
         setBattleStats()
         battleExitButton.setAttribute("disabled", "true")
     }else if(chosenRespawn == 2) {
         monster = new Orc();
+
+        if(monster.life != 0){
+            monsterImage.setAttribute("src", monster.img)
+        }
+        if(monster.life == 0) {
+            monsterImage.setAttribute("src", monster.deadImg)
+        }
         setBattle()
         setBattleStats()
         battleExitButton.setAttribute("disabled", "true")
@@ -419,6 +473,9 @@ const goToRespawn = () => {
 }
 
 const figth = (atackOption) => {
+    if(monster.life == 0) {
+        monsterImage.setAttribute("src", monster.deadImg)
+    }
     if (hero.life > 0 && monster.life > 0) {
         let damage
         if (atackOption == 1) {
@@ -438,6 +495,9 @@ const figth = (atackOption) => {
         monsterImage.setAttribute("src", monster.hitImg)
         setTimeout(() => {
             monsterImage.setAttribute("src", monster.img)
+            if(monster.life == 0) {
+                monsterImage.setAttribute("src", monster.deadImg)
+            }
         }, 200)
         setBattleStats()
         if(monster.life > 0){
@@ -451,6 +511,7 @@ const figth = (atackOption) => {
                 }
                 setBattleStats()
                 if(monster.life == 0) {
+                    monsterImage.setAttribute("src", monster.deadImg)
                     attackButton.setAttribute("disabled", "true")
                     specialAttackButton.setAttribute("disabled", "true")
                     
@@ -471,13 +532,18 @@ const figth = (atackOption) => {
         battleExitButton.innerHTML = "Recomecar"
     }
     if(monster.life == 0) {
+        monsterImage.setAttribute("src", monster.deadImg)
         const goldDropped = monster.dropGold();
         hero.gold += goldDropped;
         hero.experience += monster.experience;
         battleStats4.innerHTML = `Vitoria! voce ganhou ${monster.experience} de xp e ${goldDropped} de gold!`
         hero.levelUp(monster.experience);
+        battleContinueButton.removeAttribute("disabled")
+        battleLPButton.removeAttribute("disabled")
+        battleMPButton.removeAttribute("disabled")
         
         battleExitButton.removeAttribute("disabled")
+        setBattleStats()
     }
     
 }
@@ -493,10 +559,12 @@ const exitBattle = () => {
 const drinkLP = () => {
     hero.drinkLifePotion()
     setStats()
+    setBattleStats()
 }
 const drinkMP = () => {
     hero.drinkManaPotion()
     setStats()
+    setBattleStats()
 }
 const buyEquipment = (equipment) => {
     
@@ -569,12 +637,9 @@ const equipItem = () => {
     
     if(hero.inventario[selectedItem].type == "weapon") {
         hero.inventario.push(hero.equippedWeappon)
-        console.log(hero.inventario)
         hero.equippedWeappon = hero.inventario[selectedItem]
         hero.inventario.splice(selectedItem, 1)
-        console.log(hero.inventario)
-    }
-    if(hero.inventario[selectedItem].type == "armor") {
+    } else if (hero.inventario[selectedItem].type == "armor") {
         hero.inventario.push(hero.equippedArmor)
         hero.equippedArmor = hero.inventario[selectedItem]
         hero.inventario.splice(selectedItem, 1)

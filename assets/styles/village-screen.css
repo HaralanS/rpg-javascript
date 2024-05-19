@@ -46,6 +46,53 @@
 
 .village-char-img {
     position: relative;
-    top: 110px;
+    top: 80px;
     left: 111px;
+}
+.life-mana-box {
+    padding: 0 10px;
+    padding-top: 10px;
+    height: 30px;
+    /* background: rgba(255, 255, 255, 0.616); */
+    display: flex;
+    justify-content: space-between;
+}
+
+.life-bar-bg {
+    background: rgb(255, 61, 61);
+    height: 20px;
+    width: 150px;
+    border: 1px solid black;
+}
+.mana-bar-bg {
+    background: rgb(255, 61, 61);
+    height: 20px;
+    width: 150px;
+    border: 1px solid black;
+}
+
+.life-bar {
+    height: 100%;
+    width: 100%;
+    background: rgb(140, 233, 0);
+    text-align: center;
+}
+.mana-bar {
+    height: 100%;
+    width: 100%;
+    background: rgb(186, 0, 233);
+    text-align: center;
+}
+
+.life-bar-stats {
+    text-align: center;
+    position: relative;
+    top: -18px;
+    font-weight: bold;
+}
+.mana-bar-stats {
+    text-align: center;
+    position: relative;
+    top: -18px;
+    font-weight: bold;
 }

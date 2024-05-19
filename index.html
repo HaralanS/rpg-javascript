@@ -29,6 +29,16 @@
                 <p class="stats-04 stats"></p>
             </div>
             <div class="village-char-box">
+                <div class="life-mana-box">
+                    <div class="life-bar-bg">
+                        <div class="life-bar"></div>
+                        <p class="life-bar-stats"></p>
+                    </div>
+                    <div class="mana-bar-bg">
+                        <div class="mana-bar"></div>
+                        <p class="mana-bar-stats"></p>
+                    </div>
+                </div>
                 <img class="village-char-img" src="assets/img/warrior-01-128.png" alt="">
             </div>
             <div class="village-buttons-box">
@@ -93,7 +103,7 @@
             </div>
 
             <div class="inventory-item-selection">
-                <p class="map-message">Selecione um item para equipar</p>
+                <p class="inventory-message">Selecione um item para equipar</p>
                 <div class="map-buttons-box">
 
                     <button onclick=equipItem() class="inventory-buttons">Equipar</button>
@@ -134,17 +144,38 @@
                 
             </div>
             <div class="battle-box">
-                <div class="hero-box">
-                    <img class="char-battle-img" src="assets/img/warrior-01-128.png" alt="">
+                
+                <div class="combat-box">
+                    <div class="hero-box">
+                        <div class="life-mana-box-btl">
+                            <div class="life-bar-bg-btl">
+                                <div class="life-bar-btl"></div>
+                                <p class="life-bar-stats-btl"></p>
+                            </div>
+                            <div class="mana-bar-bg-btl">
+                                <div class="mana-bar-btl"></div>
+                                <p class="mana-bar-stats-btl"></p>
+                            </div>
+                        </div>
+                        <img class="char-battle-img" src="assets/img/warrior-01-128.png" alt="">
+                    </div>
+                    <div class="monster-box">
+                        <div class="life-bar-bg-monster">
+                            <div class="life-bar-monster"></div>
+                            <p class="life-bar-stats-monster"></p>
+                        </div>
+                        <img class="monster-battle-img" src="" alt="">
+                    </div>
                 </div>
-                <div class="monster-box">
-                    <img class="monster-battle-img" src="" alt="">
-                </div>
+                
             </div>
             <div class="battle-options">
                 <button onclick=figth(1) class="attack-button battle-button">Ataque comum</button>
                 <button onclick=figth(2) class="special-attack-button battle-button">Ataque Especial</button>
-                <button disabled onclick=exitBattle() class="battle-exit-button">Voltar para a vila</button>
+                <button disabled onclick=exitBattle() class="battle-exit-button battle-button">Voltar</button>
+                <button disabled onclick=goToRespawn() class="battle-continue-button battle-button">Continuar</button>
+                <button disabled onclick=drinkLP() class="battle-lp-button battle-button">Pocao de vida</button>
+                <button disabled onclick=drinkMP() class="battle-mp-button battle-button">Pocao de mana</button>
             </div>
         </div>
     </div>
