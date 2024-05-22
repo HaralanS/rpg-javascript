@@ -500,8 +500,10 @@ const figth = (atackOption) => {
         attackButton.setAttribute("disabled", "true")
         specialAttackButton.setAttribute("disabled", "true")
         monsterImage.setAttribute("src", monster.hitImg)
+        heroImage.setAttribute("src", "../assets/img/warrior-attack-03.png")
         setTimeout(() => {
             monsterImage.setAttribute("src", monster.img)
+            heroImage.setAttribute("src", "../assets/img/warrior-01-128.png")
             if(monster.life == 0) {
                 monsterImage.setAttribute("src", monster.deadImg)
             }
