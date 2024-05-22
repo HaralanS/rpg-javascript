@@ -13,12 +13,17 @@
 .inventory-item-name {
     cursor: pointer;
     background: rgb(66, 66, 66);
-    height: 30px;
+    height: 48px;
     border: 2px solid rgba(255, 255, 255, 0.733);
     padding: 5px;
     color: white;
     font-size: 14px;
+    display: flex;
     
+}
+.inv-item-name {
+    margin: auto 0;
+    margin-left: 10px;
 }
 
 .inventory-box {
@@ -46,5 +51,40 @@
 .inventory-message {
     text-align: center;
     color: white;
+}
+.inventory-item-img {
+    height: 32px;
+    width: 32px;
+    
+}
+.equipped-box {
+    display: flex;
+    gap: 10px;
+}
+.equipped-weapon-img-box {
+    border: 1px solid black;
+    border-radius: 4px;
+    height: 40px;
+    width: 40px;
+    background: lightgray;
+    cursor: pointer;
+}
+.equipped-armor-img-box {
+    border: 1px solid black;
+    border-radius: 4px;
+    height: 40px;
+    width: 40px;
+    background: lightgray;
+    cursor: pointer;
+}
+.equipped-weapon-img {
+    height: 32px;
+    width: 32px;
+    margin: 4px;
+}
+.equipped-armor-img {
+    height: 32px;
+    width: 32px;
+    margin: 4px;
 }
 

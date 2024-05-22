@@ -5,14 +5,15 @@ class SmallSword {
     attack = 2;
     sellingPrice = 5;
     specialAttackName = "Estocada";
-    specialAttackCost = 20;
-    info = "Ataque: 2 - Estocada: Garante acerto e da o dobro de dano ao custo de 20 de mana"
+    specialAttackCost = 10;
+    img = "../assets/img/wooden-sword-01.png";
+    info = "Ataque: 2 - Estocada: Garante acerto e da o dobro de dano ao custo de 20 de mana";
 
     specialAttack(herop){
         const random = Math.random() * 100;
         const damage = Math.ceil(herop.strength + this.attack + (this.attack) * Math.random() * 2) * 2;
-        if(herop.mana >= 20) {
-            herop.mana -= 20;
+        if(herop.mana >= this.specialAttackCost) {
+            herop.mana -= this.specialAttackCost;
             if(random < 80) {
                 console.log(damage)
                 return damage;
@@ -30,14 +31,15 @@ class TestSword {
     attack = 2;
     sellingPrice = 5;
     specialAttackName = "Estocada";
-    specialAttackCost = 20;
-    info = "Espada de teste - Ataque: 2 - Estocada: Garante acerto e da o dobro de dano ao custo de 20 de mana"
+    specialAttackCost = 10;
+    img = "../assets/img/wooden-sword-01.png";
+    info = "Espada de teste - Ataque: 2 - Estocada: Garante acerto e da o dobro de dano ao custo de 20 de mana";
 
     specialAttack(herop){
         const random = Math.random() * 100;
         const damage = Math.ceil(herop.strength + this.attack + (this.attack) * Math.random() * 2) * 2;
-        if(herop.mana >= 20) {
-            herop.mana -= 20;
+        if(herop.mana >= this.specialAttackCost) {
+            herop.mana -= this.specialAttackCost;
             if(random < 80) {
                 console.log(damage)
                 return damage;
@@ -55,14 +57,15 @@ class SteelSword {
     attack = 5;
     sellingPrice = 15;
     specialAttackName = "Cruzado";
-    specialAttackCost = 25;
+    specialAttackCost = 15;
+    img = "../assets/img/iron-sword-01.png";
     info = "Ataque: 5 - Cruzado: Garante acerto e da o dobro de dano ao custo de 25 de mana";
 
     specialAttack(herop){
         const random = Math.random() * 100;
         const damage = Math.ceil(herop.strength + this.attack + (this.attack) * Math.random() * 2) * 2;
-        if(herop.mana >= 25) {
-            herop.mana -= 25;
+        if(herop.mana >= this.specialAttackCost) {
+            herop.mana -= this.specialAttackCost;
             if(random < 80) {
                 return damage;
             } else {
@@ -77,6 +80,7 @@ class LeatherArmor {
     type = "armor";
     armor = 2;
     sellingPrice = 7;
+    img = "../assets/img/leather-armor-01.png";
     info = "Armadura: 2 - Diminui o dano que voce recebe";
 }
 class ChainArmor {
@@ -84,6 +88,7 @@ class ChainArmor {
     type = "armor";
     armor = 4;
     sellingPrice = 13;
+    img = "../assets/img/chain-armor-01.png";
     info = "Armadura: 4 - Diminui o dano que voce recebe";
 }
 const hero = {
@@ -129,7 +134,7 @@ const hero = {
         }
     },
     takeDamage(damage) {
-        const damageTaken = damage - this.equippedArmor.armor;
+        const damageTaken = Math.max(0, (damage - this.equippedArmor.armor));
         this.life = Math.max(0, (this.life - damageTaken));
     },
     levelUp(xp) {
@@ -363,6 +368,8 @@ const lifeBarMonster = document.querySelector(".life-bar-monster")
 
 const inventoryBox = document.querySelector(".inventory-box")
 const inventoryMessage = document.querySelector(".inventory-stats-01")
+const equippedWeapponImg = document.querySelector(".equipped-weapon-img")
+const equippedArmorImg = document.querySelector(".equipped-armor-img")
 
 
 
@@ -575,19 +582,19 @@ const buyEquipment = (equipment) => {
         buyManaPotion()
     }
     if(equipment == 3) {
-        if(hero.gold >= 100) {
+        if(hero.gold >= 60) {
             hero.inventario.push(new SteelSword())
-            hero.gold -= 100;
-            shopMessage.innerHTML = "Voce comprou uma espada de aco por 100 gold"
+            hero.gold -= 60;
+            shopMessage.innerHTML = "Voce comprou uma espada de aco por 60 gold"
         } else  {
             shopMessage.innerHTML = "Voce nao tem gold suficiente"
         }
     }
     if(equipment == 4) {
-        if(hero.gold >= 80) {
+        if(hero.gold >= 50) {
             hero.inventario.push(new ChainArmor())
-            hero.gold -= 80;
-            shopMessage.innerHTML = "Voce comprou uma Armadura de malha por 80 gold"
+            hero.gold -= 50;
+            shopMessage.innerHTML = "Voce comprou uma Armadura de malha por 50 gold"
         } else  {
             shopMessage.innerHTML = "Voce nao tem gold suficiente"
         }
@@ -604,10 +611,10 @@ const showItemData = (item) => {
         shopMessage.innerHTML = "Recupera 50 de mana - 10 gold"
     }
     if(item == 3) {
-        shopMessage.innerHTML = `Ataque: 5 - Cruzado: Dano dobrado - 25 de mana - 100 gold`
+        shopMessage.innerHTML = `Ataque: 5 - Cruzado: Dano dobrado - 25 de mana - 60 gold`
     }
     if(item == 4) {
-        shopMessage.innerHTML = `Armadura: 4 - 80 gold`
+        shopMessage.innerHTML = `Armadura: 4 - 50 gold`
     }
 }
 
@@ -618,8 +625,18 @@ const exitGame = () => {
 const setInventoryStats = () => {
     inventoryBox.innerText = "";
     for (let i = 0; i < hero.inventario.length; i++) {
+        equippedWeapponImg.setAttribute("src", hero.equippedWeappon.img)
+        equippedArmorImg.setAttribute("src", hero.equippedArmor.img)
         const inventoryItemBox = document.createElement("div")
-        inventoryItemBox.innerHTML = hero.inventario[i].name;
+        const inventoryItemImg = document.createElement("img")
+        const invetoryItemName = document.createElement("p")
+        invetoryItemName.innerHTML = hero.inventario[i].name;
+        inventoryItemImg.setAttribute("src", hero.inventario[i].img)
+        inventoryItemImg.setAttribute("class", "inventory-item-img")
+        invetoryItemName.setAttribute("class", "inv-item-name")
+        inventoryItemBox.appendChild(inventoryItemImg)
+        inventoryItemBox.appendChild(invetoryItemName)
+        // inventoryItemBox.innerHTML += hero.inventario[i].name;
         inventoryItemBox.setAttribute("class", "inventory-item-name")
         inventoryItemBox.setAttribute("onclick", `selectShowItem(${i})`)
         inventoryBox.appendChild(inventoryItemBox)
@@ -628,9 +645,29 @@ const setInventoryStats = () => {
     
     
 }
+// const setInventoryStats = () => {
+//     inventoryBox.innerText = "";
+//     for (let i = 0; i < hero.inventario.length; i++) {
+//         const inventoryItemBox = document.createElement("div")
+//         inventoryItemBox.innerHTML = hero.inventario[i].name;
+//         inventoryItemBox.setAttribute("class", "inventory-item-name")
+//         inventoryItemBox.setAttribute("onclick", `selectShowItem(${i})`)
+//         inventoryBox.appendChild(inventoryItemBox)
+        
+//     }
+    
+    
+// }
 const selectShowItem = (indice) => {
-    selectedItem = indice
-    inventoryMessage.innerHTML = hero.inventario[indice].info
+    if(indice == -1) {
+        inventoryMessage.innerHTML = hero.equippedWeappon.name + " - " + hero.equippedWeappon.info
+    } else if (indice == -2) {
+        inventoryMessage.innerHTML = hero.equippedArmor.name + " - " + hero.equippedArmor.info
+    } else {
+        selectedItem = indice
+        inventoryMessage.innerHTML = hero.inventario[indice].info
+    }
+    
 }
 
 const equipItem = () => {

@@ -60,20 +60,24 @@
             <div class="buying-box">
                 
                 <div class="shop-item-box">
+                    <img class="shop-item-img" src="assets/img/life-potion-01.png" alt="">
                     <p onclick=showItemData(1) class="shop-item-name shop-item-1">Pocao de vida: </p>
                     <input class="shop-item-input lp-input" type="number" placeholder="quant">
                     <button onclick=buyEquipment(1) class="shop-item-button">Comprar</button>
                 </div>
                 <div class="shop-item-box">
+                    <img class="shop-item-img" src="assets/img/mana-potion-01.png" alt="">
                     <p onclick=showItemData(2) class="shop-item-name shop-item-2">Pocao de mana: </p>
                     <input class="shop-item-input mp-input" type="number" placeholder="quant">
                     <button onclick=buyEquipment(2) class="shop-item-button">Comprar</button>
                 </div>
                 <div class="shop-item-box">
+                    <img class="shop-item-img" src="assets/img/iron-sword-01.png" alt="">
                     <p onclick=showItemData(3) class="shop-item-name shop-item-3">Espada de Aco</p>
                     <button onclick=buyEquipment(3) class="shop-item-button">Comprar</button>
                 </div>
                 <div class="shop-item-box">
+                    <img class="shop-item-img" src="assets/img/chain-armor-01.png" alt="">
                     <p onclick=showItemData(4) class="shop-item-name shop-item-4">Armadura de Malha</p>
                     <button onclick=buyEquipment(4) class="shop-item-button">Comprar</button>
                 </div>
@@ -92,6 +96,15 @@
         <div id="inventory-screen">
             <div class="page-title">Inventario</div>
             <div class="player-stats">
+                <div class="equipped-box">
+                    <div onclick=selectShowItem(-1) class="equipped-weapon-img-box">
+                        <img class="equipped-weapon-img" src="" alt="">
+                    </div>
+                    <div onclick=selectShowItem(-2) class="equipped-armor-img-box">
+                        <img class="equipped-armor-img" src="" alt="">
+                    </div>
+                    
+                </div>
                 <p class="inventory-stats-01 stats">Clique para ver mais e selecionar</p>
                 <p class="inventory-stats-02 stats"></p>
                 
