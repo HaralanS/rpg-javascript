@@ -231,6 +231,7 @@ class Goblin {
     experience = 20;
     img = "../assets/img/goblin-01.png";
     hitImg = "../assets/img/goblin-hit-01.png";
+    attackImg = "../assets/img/goblin-attack-01.png";
     deadImg = "../assets/img/goblin-dead-01.png";
 
     dropGold(){
@@ -257,6 +258,7 @@ class Orc {
     experience = 30;
     img = "../assets/img/orc-01.png";
     hitImg = "../assets/img/orc-hit-01.png";
+    attackImg = "../assets/img/orc-attack-01.png";
     deadImg = "../assets/img/orc-dead-01.png";
 
     dropGold(){
@@ -281,6 +283,7 @@ const buyManaPotion = () => {
     if(quant > 0) {
         
         if(hero.gold >= (quant * 10)) {
+            coinSound()
             hero.gold = hero.gold - (quant * 10);
             hero.manaPotion += quant;
             shopMessage.innerHTML = `Voce comprou ${quant} pocoes de mana por ${quant * 10} gold`
@@ -299,6 +302,7 @@ const buyLifePotion = () => {
     if(quant > 0) {
         
         if(hero.gold >= (quant * 10)) {
+            coinSound()
             hero.gold = hero.gold - (quant * 10);
             hero.lifePotion += quant;
             shopMessage.innerHTML = `Voce comprou ${quant} pocoes de vida por ${quant * 10} gold`
@@ -316,6 +320,7 @@ const experienceList = [0, 100, 220, 365, 540, 750, 1000, 1300];
 let monster;
 let chosenRespawn = 0;
 let selectedItem;
+let dungeonLevel = 0;
 const bgImgList = [" ", "../assets/img/goblin-forest-bg.png", "../assets/img/orc-fortress-bg-ani.gif"]
 
 const startScreen = document.getElementById("create-char-screen");
@@ -416,7 +421,7 @@ const setMap = () => {
 
 }
 const setBattleStats = () => {
-    battleStats1.innerHTML = `${hero.name} - Lvl: ${hero.level} - Experiencia: ${hero.experience}/${experienceList[hero.level]}`
+    battleStats1.innerHTML = `${hero.name} - Lvl: ${hero.level} - Experiencia: ${hero.experience}/${experienceList[hero.level]} - Gold: ${hero.gold}`
     battleStats2.innerHTML = `Pocoes de vida: ${hero.lifePotion} - Pocoes de mana: ${hero.manaPotion}`
     specialAttackButton.innerHTML = `${hero.equippedWeappon.specialAttackName} - ${hero.equippedWeappon.specialAttackCost}`
     lifeBarStatsBtl.innerHTML = `${hero.life}/${hero.maxLife}`
@@ -535,8 +540,12 @@ const figth = (atackOption) => {
                     
                 }
                 heroImage.setAttribute("src", "../assets/img/warrior-hit-01-128.png")
+                monsterImage.setAttribute("style", "left: -45px;")
+                monsterImage.setAttribute("src", monster.attackImg)
                 setTimeout(() => {
+                    monsterImage.setAttribute("style", "left: 5px;")
                     heroImage.setAttribute("src", "../assets/img/warrior-01-128.png")
+                    monsterImage.setAttribute("src", monster.img)
                 }, 200)
             }
             ), 1000)
@@ -603,6 +612,7 @@ const buyEquipment = (equipment) => {
     }
     if(equipment == 3) {
         if(hero.gold >= 60) {
+            coinSound()
             hero.inventario.push(new SteelSword())
             hero.gold -= 60;
             shopMessage.innerHTML = "Voce comprou uma espada de aco por 60 gold"
@@ -612,6 +622,7 @@ const buyEquipment = (equipment) => {
     }
     if(equipment == 4) {
         if(hero.gold >= 50) {
+            coinSound()
             hero.inventario.push(new ChainArmor())
             hero.gold -= 50;
             shopMessage.innerHTML = "Voce comprou uma Armadura de malha por 50 gold"
@@ -625,15 +636,19 @@ const buyEquipment = (equipment) => {
 
 const showItemData = (item) => {
     if(item == 1) {
+        selectItemSound()
         shopMessage.innerHTML = "Recupera 50 de vida - 10 gold"
     }
     if(item == 2) {
+        selectItemSound()
         shopMessage.innerHTML = "Recupera 50 de mana - 10 gold"
     }
     if(item == 3) {
+        selectItemSound()
         shopMessage.innerHTML = `Ataque: 5 - Cruzado: Dano dobrado - 25 de mana - 60 gold`
     }
     if(item == 4) {
+        selectItemSound()
         shopMessage.innerHTML = `Armadura: 4 - 50 gold`
     }
 }
@@ -680,10 +695,13 @@ const setInventoryStats = () => {
 // }
 const selectShowItem = (indice) => {
     if(indice == -1) {
+        selectItemSound()
         inventoryMessage.innerHTML = hero.equippedWeappon.name + " - " + hero.equippedWeappon.info
     } else if (indice == -2) {
+        selectItemSound()
         inventoryMessage.innerHTML = hero.equippedArmor.name + " - " + hero.equippedArmor.info
     } else {
+        selectItemSound()
         selectedItem = indice
         inventoryMessage.innerHTML = hero.inventario[indice].info
     }
@@ -693,13 +711,27 @@ const selectShowItem = (indice) => {
 const equipItem = () => {
     
     if(hero.inventario[selectedItem].type == "weapon") {
+        equipItemSound()
         hero.inventario.push(hero.equippedWeappon)
         hero.equippedWeappon = hero.inventario[selectedItem]
         hero.inventario.splice(selectedItem, 1)
     } else if (hero.inventario[selectedItem].type == "armor") {
+        equipItemSound()
         hero.inventario.push(hero.equippedArmor)
         hero.equippedArmor = hero.inventario[selectedItem]
         hero.inventario.splice(selectedItem, 1)
     }
     setInventoryStats()
+}
+const coinSound = () => {
+    soundEffect.setAttribute("src", "../assets/audio/coin-dropped.mp3")
+    soundEffect.play()
+}
+const equipItemSound = () => {
+    soundEffect.setAttribute("src", "../assets/audio/item-equip.mp3")
+    soundEffect.play()
+}
+const selectItemSound = () => {
+    soundEffect.setAttribute("src", "../assets/audio/metal-clang.mp3")
+    soundEffect.play()
 }
