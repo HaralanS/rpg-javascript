@@ -371,6 +371,9 @@ const inventoryMessage = document.querySelector(".inventory-stats-01")
 const equippedWeapponImg = document.querySelector(".equipped-weapon-img")
 const equippedArmorImg = document.querySelector(".equipped-armor-img")
 
+const soundEffect = document.getElementById("sound-effect")
+const soundEffectSrc = document.getElementById("sound-effect-src")
+
 
 
 const setStats = () => {
@@ -500,6 +503,8 @@ const figth = (atackOption) => {
         attackButton.setAttribute("disabled", "true")
         specialAttackButton.setAttribute("disabled", "true")
         monsterImage.setAttribute("src", monster.hitImg)
+        soundEffect.setAttribute("src", "../assets/audio/combat-punch-swing-e.mp3")
+        soundEffect.play()
         heroImage.setAttribute("style", "left: 85px;")
         heroImage.setAttribute("src", "../assets/img/warrior-attack-03.png")
         setTimeout(() => {
@@ -515,6 +520,8 @@ const figth = (atackOption) => {
             setTimeout((() => {
                 damage = monster.attack()
                 hero.takeDamage(damage);
+                soundEffect.setAttribute("src", "../assets/audio/combat-punch-swing-e.mp3")
+                soundEffect.play()
                 battleStats4.innerHTML = `Voce levou um dano de ${damage}`
                 attackButton.removeAttribute("disabled")
                 if(hero.mana >= hero.equippedWeappon.specialAttackCost) {
@@ -568,11 +575,20 @@ const exitBattle = () => {
 }
 
 const drinkLP = () => {
+    if(hero.lifePotion > 0) {
+        soundEffect.setAttribute("src", "../assets/audio/sfx-magic11.mp3")
+        soundEffect.play()
+    }
     hero.drinkLifePotion()
     setStats()
     setBattleStats()
 }
 const drinkMP = () => {
+    if(hero.manaPotion > 0) {
+        soundEffect.setAttribute("src", "../assets/audio/sfx-magic11.mp3")
+        soundEffect.play()
+    }
+    
     hero.drinkManaPotion()
     setStats()
     setBattleStats()
