@@ -30,6 +30,10 @@
     height: 250px;
     padding: 10px;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
 }
 
 .inventory-item-selection {

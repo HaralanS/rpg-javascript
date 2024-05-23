@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/assets/styles/map-screen.css">
     <link rel="stylesheet" href="/assets/styles/battle-screen.css">
     <link rel="stylesheet" href="/assets/styles/inventory-screen.css">
+    <link rel="stylesheet" href="/assets/styles/seller-screen.css">
     <title>RPG Game</title>
 </head>
 <body>
@@ -91,9 +92,33 @@
                 <div class="shop-message">
                     Bem vindo aventureiro! O que deseja comprar?                    
                 </div>
-                <button onclick=setVillage() class="shop-exit-button">Sair da loja</button>
+                <div>
+                    <button  class="shop-exit-button" onclick=setSellerScreen()>Vender Itens</button>
+                    <button onclick=setVillage() class="shop-exit-button">Sair da loja</button>
+                </div>
+                
             </div>
             
+        </div>
+        <div id="seller-screen">
+            <div class="page-title">
+                Loja de Bugigangas
+            </div>
+            <div class="player-stats">
+                <p class="selling-stats"></p>
+                <p class="selling-item-message">Selecione para ver as informacoes dos items</p>
+            </div>
+            <div class="seller-items-box">
+
+            </div>
+            <div class="seller-buttons-box">
+                <p class="selling-message">Selecione o item que deseja vender</p>
+                <div>
+                    <button class="seller-buttons" onclick=sellItem()>Vender</button>
+                    <button class="seller-buttons" onclick=setShop()>Voltar</button>
+                </div>
+                
+            </div>
         </div>
         <div id="inventory-screen">
             <div class="page-title">Inventario</div>

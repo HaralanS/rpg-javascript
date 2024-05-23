@@ -1,13 +1,13 @@
 
 class SmallSword {
-    name = "Espada Pequena";
+    name = "Espada de Madeira";
     type = "weapon";
     attack = 2;
     sellingPrice = 5;
     specialAttackName = "Estocada";
     specialAttackCost = 10;
     img = "../assets/img/wooden-sword-01.png";
-    info = "Ataque: 2 - Estocada: Garante acerto e da o dobro de dano ao custo de 20 de mana";
+    info = "Ataque: 2 - Estocada: Garante acerto e da o dobro de dano ao custo de 10 de mana";
 
     specialAttack(herop){
         const random = Math.random() * 100;
@@ -59,7 +59,7 @@ class SteelSword {
     specialAttackName = "Cruzado";
     specialAttackCost = 15;
     img = "../assets/img/iron-sword-01.png";
-    info = "Ataque: 5 - Cruzado: Garante acerto e da o dobro de dano ao custo de 25 de mana";
+    info = "Ataque: 5 - Cruzado: Garante acerto e da o dobro de dano ao custo de 15 de mana";
 
     specialAttack(herop){
         const random = Math.random() * 100;
@@ -67,6 +67,30 @@ class SteelSword {
         if(herop.mana >= this.specialAttackCost) {
             herop.mana -= this.specialAttackCost;
             if(random < 80) {
+                return damage;
+            } else {
+                return damage * 2;
+            } 
+        }
+        
+    }
+}
+class BattleAxe {
+    name = "Machado de Batalha";
+    type = "weapon";
+    attack = 8;
+    sellingPrice = 25;
+    specialAttackName = "Cruzado";
+    specialAttackCost = 20;
+    img = "../assets/img/battle-axe-01.png";
+    info = "Ataque: 8 - Cruzado: Garante acerto, tem 50% de critico e da o dobro de dano ao custo de 20 de mana";
+
+    specialAttack(herop){
+        const random = Math.random() * 100;
+        const damage = Math.ceil(herop.strength + this.attack + (this.attack) * Math.random() * 2) * 2;
+        if(herop.mana >= this.specialAttackCost) {
+            herop.mana -= this.specialAttackCost;
+            if(random < 50) {
                 return damage;
             } else {
                 return damage * 2;
@@ -223,7 +247,7 @@ const hero = {
         }
 
     }
-};
+}
 class Goblin {
     name = "Goblin";
     life = 50;
@@ -250,11 +274,98 @@ class Goblin {
     takeDamage(damage) {
         this.life = Math.max(0, (this.life - damage));
     }
+    dropItem() {
+        const random = Math.random() * 100;
+        if(random > 90) {
+            const item = new SmallSword()
+            hero.inventario.push(item)
+            return item.name
+        } else {
+            return ""
+        }
+    }
+}
+class GoblinWarrior {
+    name = "Goblin Guerreiro";
+    life = 60;
+    maxLife = 60;
+    experience = 25;
+    img = "../assets/img/goblin-warrior-01-128.png";
+    hitImg = "../assets/img/goblin-warrior-hit.png";
+    attackImg = "../assets/img/goblin-warrior-attack-01.png";
+    deadImg = "../assets/img/goblin-dead-01.png";
+
+    dropGold(){
+        return Math.ceil(3 + Math.random() * 15);
+    }
+    attack() {
+        const random = Math.random() * 10;
+        if (random < 8) {
+            return 6 + Math.ceil(Math.random() * 10);
+        } else if (random < 9) {
+            return (6 + Math.ceil(Math.random() * 10)) * 2;
+        } else {
+            return 0;
+        }
+    }
+    takeDamage(damage) {
+        this.life = Math.max(0, (this.life - damage));
+    }
+    dropItem() {
+        const random = Math.random() * 100;
+        if(random > 90) {
+            const item = new LeatherArmor()
+            hero.inventario.push(item)
+            return item.name
+        } else {
+            return ""
+        }
+    }
+}
+class GoblinChief {
+    name = "Chefe Goblin";
+    life = 200;
+    maxLife = 200;
+    experience = 60;
+    img = "../assets/img/goblin-chief.png";
+    hitImg = "../assets/img/goblin-chief-hit.png";
+    attackImg = "../assets/img/goblin-chief-attack-01.png";
+    deadImg = "../assets/img/goblin-dead-01.png";
+
+    dropGold(){
+        return Math.ceil(15 + Math.random() * 20);
+    }
+    attack() {
+        const random = Math.random() * 10;
+        if (random < 8) {
+            return 10 + Math.ceil(Math.random() * 20);
+        } else if (random < 9) {
+            return (10 + Math.ceil(Math.random() * 20)) * 2;
+        } else {
+            return 0;
+        }
+    }
+    takeDamage(damage) {
+        this.life = Math.max(0, (this.life - damage));
+    }
+    dropItem() {
+        const item = new BattleAxe()
+            hero.inventario.push(item)
+            return item.name
+        // const random = Math.random() * 100;
+        // if(random > 90) {
+        //     const item = new LeatherArmor()
+        //     hero.inventario.push(item)
+        //     return item.name
+        // } else {
+        //     return ""
+        // }
+    }
 }
 class Orc {
     name = "Orc";
-    life = 75;
-    maxLife = 75;
+    life = 100;
+    maxLife = 100;
     experience = 30;
     img = "../assets/img/orc-01.png";
     hitImg = "../assets/img/orc-hit-01.png";
@@ -267,15 +378,62 @@ class Orc {
     attack() {
         const random = Math.random() * 10;
         if (random < 8) {
-            return 7 + Math.ceil(Math.random() * 15);
+            return 9 + Math.ceil(Math.random() * 20);
         } else if (random < 9) {
-            return (7 + Math.ceil(Math.random() * 15)) * 2;
+            return (9 + Math.ceil(Math.random() * 20)) * 2;
         } else {
             return 0;
         }
     }
     takeDamage(damage) {
         this.life = Math.max(0, (this.life - damage));
+    }
+    dropItem() {
+        const random = Math.random() * 10;
+        if(random > 7) {
+            const item = new SmallSword()
+            hero.inventario.push(item)
+            return item.name
+        } else {
+            return ""
+        }
+    }
+}
+class OrcSoldier {
+    name = "Orc Soldado";
+    life = 150;
+    maxLife = 150;
+    experience = 35;
+    img = "../assets/img/orc-soldier-01.png";
+    hitImg = "../assets/img/orc-soldier-hit-01.png";
+    attackImg = "../assets/img/orc-soldier-attack-01.png";
+    deadImg = "../assets/img/orc-dead-01.png";
+
+    dropGold(){
+        return Math.ceil(5 + Math.random() * 15);
+    }
+    attack() {
+        const random = Math.random() * 10;
+        if (random < 8) {
+            return 13 + Math.ceil(Math.random() * 25);
+        } else if (random < 9) {
+            return (13 + Math.ceil(Math.random() * 25)) * 2;
+        } else {
+            return 0;
+        }
+    }
+    takeDamage(damage) {
+        this.life = Math.max(0, (this.life - damage));
+    }
+    dropItem() {
+        const random = Math.random() * 10;
+        if(random > 7) {
+            const item = new SmallSword()
+            hero.inventario.push(item)
+            return item.name
+        } else {
+            return ""
+        }
     }
 }
 const buyManaPotion = () => {
@@ -321,6 +479,8 @@ let monster;
 let chosenRespawn = 0;
 let selectedItem;
 let dungeonLevel = 0;
+let bossRoom = false;
+const dungeonCompleted = [true, false,false,false]
 const bgImgList = [" ", "../assets/img/goblin-forest-bg.png", "../assets/img/orc-fortress-bg-ani.gif"]
 
 const startScreen = document.getElementById("create-char-screen");
@@ -329,6 +489,7 @@ const shopScreen = document.getElementById("shop-screen")
 const mapScreen = document.getElementById("map-screen")
 const battleScreen = document.getElementById("battle-screen")
 const inventoryScreen = document.getElementById("inventory-screen")
+const sellerScreen = document.getElementById("seller-screen")
 
 const nameInput = document.getElementById("name-input");
 const nameButton = document.getElementById("name-button");
@@ -346,8 +507,12 @@ const lpBuyingQuant = document.querySelector(".lp-input")
 const shopMessage = document.querySelector(".shop-message")
 const shopStats1 = document.querySelector(".shop-stats-01")
 const shopStats2 = document.querySelector(".shop-stats-02")
+const sellerBox = document.querySelector(".seller-items-box")
+const sellerMessage = document.querySelector(".selling-item-message")
+const sellingStats = document.querySelector(".selling-stats")
 
 const mapMessage = document.querySelector(".map-message");
+const mapStats1 = document.querySelector(".map-stats-01");
 const mapStats2 = document.querySelector(".map-stats-02");
 
 const battleStats1 = document.querySelector(".battle-stats-01");
@@ -406,9 +571,39 @@ const setVillage = () => {
 const setShop = () => {
     shopMessage.innerHTML = "Bem vindo aventureiro! O que deseja comprar?"
     villageScreen.setAttribute("style", "display: none")
+    sellerScreen.setAttribute("style", "display: none")
     shopScreen.setAttribute("style", "display: flex")
     shopStats1.innerHTML = `Pocoes de vida: ${hero.lifePotion} - Pocoes de mana: ${hero.manaPotion} - Gold: ${hero.gold}`
     shopStats2.innerHTML = `${hero.equippedWeappon.name} - Atq: ${hero.equippedWeappon.attack} -- ${hero.equippedArmor.name} - Arm: ${hero.equippedArmor.armor}`
+}
+const setSellerScreen = () => {
+    sellerScreen.setAttribute("style", "display: flex")
+    shopScreen.setAttribute("style", "display: none")
+    sellerMessage.innerHTML = "Selecione para ver as informacoes dos items"
+    setSellerStats()
+}
+const setSellerStats = () => {
+    sellingStats.innerHTML = "Gold: " + hero.gold
+    sellerBox.innerText = "";
+    for (let i = 0; i < hero.inventario.length; i++) {
+        
+        const inventoryItemBox = document.createElement("div")
+        const inventoryItemImg = document.createElement("img")
+        const invetoryItemName = document.createElement("p")
+        invetoryItemName.innerHTML = hero.inventario[i].name;
+        inventoryItemImg.setAttribute("src", hero.inventario[i].img)
+        inventoryItemImg.setAttribute("class", "inventory-item-img")
+        invetoryItemName.setAttribute("class", "inv-item-name")
+        inventoryItemBox.appendChild(inventoryItemImg)
+        inventoryItemBox.appendChild(invetoryItemName)
+        // inventoryItemBox.innerHTML += hero.inventario[i].name;
+        inventoryItemBox.setAttribute("class", "inventory-item-name")
+        inventoryItemBox.setAttribute("onclick", `selectSellingItem(${i})`)
+        sellerBox.appendChild(inventoryItemBox)
+        
+    }
+    
+    
 }
 const setInventory = () => {
     villageScreen.setAttribute("style", "display: none")
@@ -423,6 +618,12 @@ const setMap = () => {
 const setBattleStats = () => {
     battleStats1.innerHTML = `${hero.name} - Lvl: ${hero.level} - Experiencia: ${hero.experience}/${experienceList[hero.level]} - Gold: ${hero.gold}`
     battleStats2.innerHTML = `Pocoes de vida: ${hero.lifePotion} - Pocoes de mana: ${hero.manaPotion}`
+    if (bossRoom) {
+        battleStats3.innerHTML = `Nivel da dungeon: CHEFAO - Inimigo: ${monster.name}`
+    } else {
+        battleStats3.innerHTML = `Nivel da dungeon: ${dungeonLevel} - Inimigo: ${monster.name}`
+    }
+    
     specialAttackButton.innerHTML = `${hero.equippedWeappon.specialAttackName} - ${hero.equippedWeappon.specialAttackCost}`
     lifeBarStatsBtl.innerHTML = `${hero.life}/${hero.maxLife}`
     manaBarStatsBtl.innerHTML = `${hero.mana}/${hero.maxMana}`
@@ -449,36 +650,69 @@ const selectRespawn = (resp) => {
     chosenRespawn = resp;
     if(resp == 1) {
         mapMessage.innerHTML = "Ir para o acampamento dos goblins";
-        mapStats2.innerHTML = "O acampamento dos goblins eh um otimo lugar para um aventureiro iciante adquirir experiencia"
+        mapStats1.innerHTML = `Niveis: 10 - Liberada`
+        mapStats2.innerHTML = "O acampamento dos goblins eh um otimo lugar para um aventureiro iciante adquirir experiencia. Complete a "
     }
     if(resp == 2) {
         mapMessage.innerHTML = "Ir para o forte dos orcs";
+        
+        if(dungeonCompleted[resp - 1]) {
+            mapStats1.innerHTML = `Niveis: 10 - Liberada`
+        } else {
+            mapStats1.innerHTML = `Niveis: 10 - Derrote o Chefe Goblin para Liberar`
+        }
         mapStats2.innerHTML = "O forte dos orcs pode ser desafiador se voce esta comecando, mas quando que voce sentir que o acampamento dos goblins esta facil pode ser uma boa opcao."
     }
 }
 const goToRespawn = () => {
-    
+    if(!dungeonCompleted[chosenRespawn - 1]) {
+
+        return
+    }
+    dungeonLevel ++;
     if(chosenRespawn == 1) {
-        monster = new Goblin();
-        if(monster.life != 0){
-            monsterImage.setAttribute("src", monster.img)
+        if(dungeonLevel < 3) {
+            monster = new Goblin();
+            if(monster.life != 0){
+                monsterImage.setAttribute("src", monster.img)
+            }
+        } else if (dungeonLevel < 10) {
+            monster = new GoblinWarrior();
+            if(monster.life != 0){
+                monsterImage.setAttribute("src", monster.img)
+            }
+        } else if (dungeonLevel == 10) {
+            monster = new GoblinChief();
+            if(monster.life != 0){
+                monsterImage.setAttribute("src", monster.img)
+            }
+            bossRoom = true;
         }
         
-        if(monster.life == 0) {
-            monsterImage.setAttribute("src", monster.deadImg)
-        }
+        
         setBattle()
         setBattleStats()
         battleExitButton.setAttribute("disabled", "true")
     }else if(chosenRespawn == 2) {
-        monster = new Orc();
-
-        if(monster.life != 0){
-            monsterImage.setAttribute("src", monster.img)
+        if(dungeonLevel < 4) {
+            monster = new Orc();
+            if(monster.life != 0){
+                monsterImage.setAttribute("src", monster.img)
+            }
+        } else if(dungeonLevel < 13) {
+            monster = new OrcSoldier();
+            if(monster.life != 0){
+                monsterImage.setAttribute("src", monster.img)
+            }
+        }else if (dungeonLevel == 10) {
+            monster = new OrcSoldier();
+            if(monster.life != 0){
+                monsterImage.setAttribute("src", monster.img)
+            }
+            bossRoom = true;
         }
-        if(monster.life == 0) {
-            monsterImage.setAttribute("src", monster.deadImg)
-        }
+        
+        
         setBattle()
         setBattleStats()
         battleExitButton.setAttribute("disabled", "true")
@@ -561,11 +795,19 @@ const figth = (atackOption) => {
     if(monster.life == 0) {
         monsterImage.setAttribute("src", monster.deadImg)
         const goldDropped = monster.dropGold();
+        const drop = monster.dropItem()
         hero.gold += goldDropped;
         hero.experience += monster.experience;
-        battleStats4.innerHTML = `Vitoria! voce ganhou ${monster.experience} de xp e ${goldDropped} de gold!`
+        battleStats4.innerHTML = `Vitoria! Voce ganhou ${monster.experience} de xp e ${goldDropped} de gold!`
+        if(drop.length > 3) {
+            battleStats4.innerHTML += ` Voce encontrou ${drop}.`
+        }
         hero.levelUp(monster.experience);
-        battleContinueButton.removeAttribute("disabled")
+        if (!bossRoom) {
+            battleContinueButton.removeAttribute("disabled")
+            dungeonCompleted[chosenRespawn] = true;
+        }
+        
         battleLPButton.removeAttribute("disabled")
         battleMPButton.removeAttribute("disabled")
         
@@ -579,6 +821,8 @@ const exitBattle = () => {
     if(hero.life <= 0) {
         location.reload()
     } else {
+        bossRoom = false;
+        dungeonLevel = 0;
         setVillage()
     }
 }
@@ -707,6 +951,11 @@ const selectShowItem = (indice) => {
     }
     
 }
+const selectSellingItem = (indice) => {
+    selectItemSound()
+    selectedItem = indice
+    sellerMessage.innerHTML = hero.inventario[indice].name + " - Preco: " + hero.inventario[indice].sellingPrice
+}
 
 const equipItem = () => {
     
@@ -722,6 +971,13 @@ const equipItem = () => {
         hero.inventario.splice(selectedItem, 1)
     }
     setInventoryStats()
+}
+const sellItem = () => {
+    coinSound()
+    const cost = hero.inventario[selectedItem].sellingPrice
+    hero.inventario.splice(selectedItem, 1)
+    hero.gold += cost
+    setSellerStats()
 }
 const coinSound = () => {
     soundEffect.setAttribute("src", "../assets/audio/coin-dropped.mp3")
