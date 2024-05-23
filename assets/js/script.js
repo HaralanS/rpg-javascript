@@ -805,6 +805,8 @@ const figth = (atackOption) => {
         hero.levelUp(monster.experience);
         if (!bossRoom) {
             battleContinueButton.removeAttribute("disabled")
+            
+        } else {
             dungeonCompleted[chosenRespawn] = true;
         }
         
