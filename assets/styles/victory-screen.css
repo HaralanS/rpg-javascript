@@ -1,0 +1,28 @@
+#victory-screen {
+    display: none;
+    background-image: url("../img/starting-page.png");
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    text-align: center;
+    padding: 50px 20px;
+    gap: 20px;
+    border: 4px solid rgba(255, 255, 255, 0.486);
+}
+.victory-description {
+    color: white;
+}
+.victory-title{
+    color: yellow;
+}
+.victory-buttons {
+    height: 30px;
+    width: 150px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.orb-img {
+    height: 128px;
+    width: 128px;
+    margin: 0 auto;
+}

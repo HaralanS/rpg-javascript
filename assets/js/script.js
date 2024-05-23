@@ -80,10 +80,10 @@ class BattleAxe {
     type = "weapon";
     attack = 8;
     sellingPrice = 25;
-    specialAttackName = "Cruzado";
+    specialAttackName = "Decepar";
     specialAttackCost = 20;
     img = "../assets/img/battle-axe-01.png";
-    info = "Ataque: 8 - Cruzado: Garante acerto, tem 50% de critico e da o dobro de dano ao custo de 20 de mana";
+    info = "Ataque: 8 - Decepar: Garante acerto, tem 50% de critico e da o dobro de dano ao custo de 20 de mana";
 
     specialAttack(herop){
         const random = Math.random() * 100;
@@ -107,6 +107,14 @@ class LeatherArmor {
     img = "../assets/img/leather-armor-01.png";
     info = "Armadura: 2 - Diminui o dano que voce recebe";
 }
+class HunterArmor {
+    name = "Armadura do Cacador";
+    type = "armor";
+    armor = 3;
+    sellingPrice = 10;
+    img = "../assets/img/hunter-armor-01.png";
+    info = "Armadura: 3 - Diminui o dano que voce recebe";
+}
 class ChainArmor {
     name = "Armadura de Malha";
     type = "armor";
@@ -114,6 +122,14 @@ class ChainArmor {
     sellingPrice = 13;
     img = "../assets/img/chain-armor-01.png";
     info = "Armadura: 4 - Diminui o dano que voce recebe";
+}
+class PlateArmor {
+    name = "Armadura de Placas";
+    type = "armor";
+    armor = 6;
+    sellingPrice = 20;
+    img = "../assets/img/plate-armor-01.png";
+    info = "Armadura: 6 - Diminui o dano que voce recebe";
 }
 const hero = {
     name: "Haralan",
@@ -162,7 +178,33 @@ const hero = {
         this.life = Math.max(0, (this.life - damageTaken));
     },
     levelUp(xp) {
-        if (this.experience >= 1300) {
+        if (this.experience >= 2090) {
+            
+            if(this.experience - xp < 2090) {
+                battleStats4.innerHTML += " - Parabens! Voce subiu para o nivel 9!"
+                this.life = Math.min(this.life + 15, this.maxLife);
+                this.mana = Math.min(this.mana + 5, this.maxMana);
+
+            }
+            this.level = 10;
+            this.strength = 23;
+            this.maigcPower = 11;
+            this.maxLife = 235;
+            this.maxMana = 95;
+        } else if (this.experience >= 1660) {
+            
+            if(this.experience - xp < 1660) {
+                battleStats4.innerHTML += " - Parabens! Voce subiu para o nivel 9!"
+                this.life = Math.min(this.life + 15, this.maxLife);
+                this.mana = Math.min(this.mana + 5, this.maxMana);
+
+            }
+            this.level = 9;
+            this.strength = 21;
+            this.maigcPower = 10;
+            this.maxLife = 220;
+            this.maxMana = 90;
+        } else if (this.experience >= 1300) {
             
             if(this.experience - xp < 1300) {
                 battleStats4.innerHTML += " - Parabens! Voce subiu para o nivel 8!"
@@ -324,8 +366,8 @@ class GoblinWarrior {
 }
 class GoblinChief {
     name = "Chefe Goblin";
-    life = 200;
-    maxLife = 200;
+    life = 250;
+    maxLife = 250;
     experience = 60;
     img = "../assets/img/goblin-chief.png";
     hitImg = "../assets/img/goblin-chief-hit.png";
@@ -338,9 +380,9 @@ class GoblinChief {
     attack() {
         const random = Math.random() * 10;
         if (random < 8) {
-            return 10 + Math.ceil(Math.random() * 20);
+            return 12 + Math.ceil(Math.random() * 20);
         } else if (random < 9) {
-            return (10 + Math.ceil(Math.random() * 20)) * 2;
+            return (12 + Math.ceil(Math.random() * 20)) * 2;
         } else {
             return 0;
         }
@@ -391,7 +433,7 @@ class Orc {
     dropItem() {
         const random = Math.random() * 10;
         if(random > 7) {
-            const item = new SmallSword()
+            const item = new HunterArmor()
             hero.inventario.push(item)
             return item.name
         } else {
@@ -428,12 +470,45 @@ class OrcSoldier {
     dropItem() {
         const random = Math.random() * 10;
         if(random > 7) {
-            const item = new SmallSword()
+            const item = new HunterArmor()
             hero.inventario.push(item)
             return item.name
         } else {
             return ""
         }
+    }
+}
+class OrcKing {
+    name = "Rei Orc";
+    life = 500;
+    maxLife = 500;
+    experience = 100;
+    img = "../assets/img/orc-king-01.png";
+    hitImg = "../assets/img/orc-king-hit-01.png";
+    attackImg = "../assets/img/orc-king-attack-01.png";
+    deadImg = "../assets/img/orc-dead-01.png";
+
+    dropGold(){
+        return Math.ceil(30 + Math.random() * 50);
+    }
+    attack() {
+        const random = Math.random() * 10;
+        if (random < 8) {
+            return 20 + Math.ceil(Math.random() * 40);
+        } else if (random < 9) {
+            return (20 + Math.ceil(Math.random() * 40)) * 2;
+        } else {
+            return 0;
+        }
+    }
+    takeDamage(damage) {
+        this.life = Math.max(0, (this.life - damage));
+    }
+    dropItem() {
+        const item = new PlateArmor()
+        hero.inventario.push(item)
+        return item.name
+        
     }
 }
 const buyManaPotion = () => {
@@ -474,12 +549,13 @@ const buyLifePotion = () => {
         lpBuyingQuant.value = 0;
     }
 }
-const experienceList = [0, 100, 220, 365, 540, 750, 1000, 1300];
+const experienceList = [0, 100, 220, 365, 540, 750, 1000, 1300, 1660, 2090];
 let monster;
 let chosenRespawn = 0;
 let selectedItem;
 let dungeonLevel = 0;
 let bossRoom = false;
+let hasTheOrb = false;
 const dungeonCompleted = [true, false,false,false]
 const bgImgList = [" ", "../assets/img/goblin-forest-bg.png", "../assets/img/orc-fortress-bg-ani.gif"]
 
@@ -490,6 +566,7 @@ const mapScreen = document.getElementById("map-screen")
 const battleScreen = document.getElementById("battle-screen")
 const inventoryScreen = document.getElementById("inventory-screen")
 const sellerScreen = document.getElementById("seller-screen")
+const victoryScreen = document.getElementById("victory-screen")
 
 const nameInput = document.getElementById("name-input");
 const nameButton = document.getElementById("name-button");
@@ -501,6 +578,8 @@ const lifeBar = document.querySelector(".life-bar")
 const manaBar = document.querySelector(".mana-bar")
 const lifeBarStats = document.querySelector(".life-bar-stats")
 const manaBarStats = document.querySelector(".mana-bar-stats")
+const victoryButton = document.querySelector(".victory-button")
+const startStats = document.querySelector(".start-stats")
 
 const mpBuyingQuant = document.querySelector(".mp-input")
 const lpBuyingQuant = document.querySelector(".lp-input")
@@ -565,6 +644,11 @@ const setVillage = () => {
     inventoryScreen.setAttribute("style", "display: none")
     villageScreen.setAttribute("style", "display: flex")
     battleScreen.setAttribute("style", "display: none")
+    victoryScreen.setAttribute("style", "display: none")
+    
+    if(dungeonCompleted[2]) {
+        victoryButton.setAttribute("style", "display: block")
+    }
     setStats()
 }
 
@@ -651,17 +735,17 @@ const selectRespawn = (resp) => {
     if(resp == 1) {
         mapMessage.innerHTML = "Ir para o acampamento dos goblins";
         mapStats1.innerHTML = `Niveis: 10 - Liberada`
-        mapStats2.innerHTML = "O acampamento dos goblins eh um otimo lugar para um aventureiro iciante adquirir experiencia. Complete a "
+        mapStats2.innerHTML = "Um sabio uma vez disse - Com goblin nao se fala. Mata! Por isso mesmo voce nao vai tentar negociar com esses monstros verdes. Mate todos ate chegar ao Chefe Goblin para ter acesso ao forte dos Orcs!"
     }
     if(resp == 2) {
         mapMessage.innerHTML = "Ir para o forte dos orcs";
         
         if(dungeonCompleted[resp - 1]) {
-            mapStats1.innerHTML = `Niveis: 10 - Liberada`
+            mapStats1.innerHTML = `Niveis: 13 - Liberada`
         } else {
-            mapStats1.innerHTML = `Niveis: 10 - Derrote o Chefe Goblin para Liberar`
+            mapStats1.innerHTML = `Niveis: 13 - Derrote o Chefe Goblin para Liberar`
         }
-        mapStats2.innerHTML = "O forte dos orcs pode ser desafiador se voce esta comecando, mas quando que voce sentir que o acampamento dos goblins esta facil pode ser uma boa opcao."
+        mapStats2.innerHTML = "Este e o dominio do Rei Orc, que roubou o Orb que protegia sua vila de magia malefica. Derrote o chefe Goblin para conseguir acesso ao forte e elimine todos os guardas do rei para chegar ate ele e recuperar o Orb."
     }
 }
 const goToRespawn = () => {
@@ -704,8 +788,8 @@ const goToRespawn = () => {
             if(monster.life != 0){
                 monsterImage.setAttribute("src", monster.img)
             }
-        }else if (dungeonLevel == 10) {
-            monster = new OrcSoldier();
+        }else if (dungeonLevel == 13) {
+            monster = new OrcKing();
             if(monster.life != 0){
                 monsterImage.setAttribute("src", monster.img)
             }
@@ -992,4 +1076,16 @@ const equipItemSound = () => {
 const selectItemSound = () => {
     soundEffect.setAttribute("src", "../assets/audio/metal-clang.mp3")
     soundEffect.play()
+}
+const startGame = () => {
+    if( nameInput.value.length > 2 && nameInput.value.length < 11) {
+        setVillage()
+    } else {
+        startStats.innerHTML = "Seu nome precisa ter entre 3 e 10 caracteres."
+    }
+    
+}
+const setVictoryScreen = () => {
+    villageScreen.setAttribute("style", "display: none")
+    victoryScreen.setAttribute("style", "display: flex")
 }

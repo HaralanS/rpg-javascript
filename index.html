@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="/assets/styles/battle-screen.css">
     <link rel="stylesheet" href="/assets/styles/inventory-screen.css">
     <link rel="stylesheet" href="/assets/styles/seller-screen.css">
+    <link rel="stylesheet" href="/assets/styles/victory-screen.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+
+    
     <title>RPG Game</title>
 </head>
 <body>
@@ -18,10 +25,11 @@
     </audio>
     <div class="game-screen">
         <div id="create-char-screen" class="create-char-screen">
-            <h1 class="start-title">Orb's Quest</h1>
-            <p id="description"></p>
+            <h1 class="start-title">The Quest for the Orb</h1>
+            <p class="description">Ajude sua vila recuperando o Orb que foi roubado pelo Rei Orc. Percorra todas as dungeons e derrote todos os chefes ate liberar o Forte dos Orcs, onde esta escondido o Orb</p>
             <input id="name-input" type="text" placeholder="Escolha o nome do personagem">
-            <button onclick=setVillage() id="name-button">Iniciar</button>
+            <button onclick=startGame() id="name-button">Iniciar</button>
+            <p class="start-stats">Nos diga o seu nome aventureiro</p>
         </div>
         <div id="village-screen" class="village-screen">
             <div class="page-title">Vila Nova Esperanca</div>
@@ -30,6 +38,8 @@
                 <p class="stats-02 stats"></p>
                 <p class="stats-03 stats"></p>
                 <p class="stats-04 stats"></p>
+                <button onclick=setVictoryScreen() class="victory-button">Finalizar jogo!</button>
+
             </div>
             <div class="village-char-box">
                 <div class="life-mana-box">
@@ -175,6 +185,7 @@
             </div>
         </div>
         <div id="battle-screen">
+            
             <div class="page-title">Batalha</div>
             <div class="player-stats">
                 <p class="battle-stats-01 stats"></p>
@@ -217,6 +228,13 @@
                 <button disabled onclick=drinkLP() class="battle-lp-button battle-button">Pocao de vida</button>
                 <button disabled onclick=drinkMP() class="battle-mp-button battle-button">Pocao de mana</button>
             </div>
+        </div>
+        <div id="victory-screen">
+            <h1 class="victory-title">Viva o heroi!</h1>
+            <img class="orb-img" src="assets/img/orb.png" alt="">
+            <p class="victory-description">Voce recuperou nosso Orb e seremos eternamente gratos a voce!</p>
+            <button class="victory-buttons" onclick=setVillage()>Continuar jogando</button>
+            <button class="victory-buttons" onclick=exitGame()>Sair</button>
         </div>
     </div>
     

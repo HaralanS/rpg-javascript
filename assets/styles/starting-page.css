@@ -1,17 +1,24 @@
 .create-char-screen {
     display: flex;
     flex-direction: column;
-    background: red;
+    background: rgb(185, 185, 185);
+    background-image: url("../img/starting-page.png");
     width: 100%;
     height: 100%;
     justify-content: center;
     gap: 20px;
     padding: 20px;
+    border: 4px solid rgba(255, 255, 255, 0.486);
 }
 
 .start-title {
     text-align: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: "MedievalSharp", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
+    color: rgb(255, 230, 0);
 }
 
 #name-button {
@@ -29,4 +36,17 @@
     border: none;
     padding: 15px;
     box-shadow: 0 0 10px black;
+}
+.description {
+    /* background: rgb(75, 75, 75); */
+    background-image: url("../img/scroll-01.png");
+    height: 180px;
+    padding: 37px 25px;
+    color: rgb(59, 37, 30);
+    
+}
+.start-stats {
+    height: 40px;
+    color: white;
+    text-align: center;
 }
